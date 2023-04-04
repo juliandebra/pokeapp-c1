@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-
+import {usePokeStates} from '../Context/Context'
 const PokeDetail = () => {
+    const {favDispatch} = usePokeStates()
     const [poke, setPoke] = useState({})
     const {name} = useParams()
     const url = 'https://pokeapi.co/api/v2/pokemon/' + name
-    let favs = localStorage.getItem('favs') || []
     
     useEffect(() => {
         fetch(url)
@@ -14,13 +14,7 @@ const PokeDetail = () => {
     }, [])
 
     const addFav = () => {
-        if(favs === []){
-            favs = [poke]
-        } else {
-            let parsedFavs = JSON.parse(favs)
-            favs = [...parsedFavs, poke]
-        }
-        localStorage.setItem('favs', JSON.stringify(favs))
+        favDispatch({type: 'ADD_FAV', payload: poke})
     }
 
   return (

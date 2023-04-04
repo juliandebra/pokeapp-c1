@@ -1,12 +1,11 @@
 import React from 'react'
+import { usePokeStates } from '../Context/Context'
 
 const Favs = () => {
-
-    const favs = localStorage.getItem('favs')
-    let parsedFavs = JSON.parse(favs) || []
+    const {favState} = usePokeStates()
   return (
     <div>
-        {parsedFavs.map(pokeFav => (
+        {favState.map(pokeFav => (
             <div>
             <h3>{pokeFav.name}</h3>
             <img src={pokeFav.sprites?.front_default} alt=""/>

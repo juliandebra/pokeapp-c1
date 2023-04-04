@@ -4,11 +4,24 @@ import { usePokeStates } from '../Context/Context'
 
 const Home = () => {
 
-    const {pokeList} = usePokeStates()
-    console.log(pokeList)
+    const {apiState} = usePokeStates()
+
+    // let favs = localStorage.getItem('favs') || []
+  //   const addFav = (poke) => {
+  //     favs.push(poke)
+  //     localStorage.setItem('favs', JSON.stringify(favs))
+  // }
+
   return (
     <div>
-        {pokeList.map(poke => <Link to={'/poke/' + poke.name} key={poke.url}><h4>{poke.name}</h4></Link>)}
+        {apiState.map(poke => 
+          <React.Fragment key={poke.name}>
+            <Link to={'/poke/' + poke.name} key={poke.url}>
+              <h4>{poke.name}</h4>
+            </Link>
+            {/* <button onClick={() => addFav(poke)}>⭐</button> */}
+          </React.Fragment>
+        )}
     </div>
   )
 }
